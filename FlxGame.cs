@@ -17,9 +17,9 @@ namespace org.flixel
         internal string SndFlixel = "Flixel;component/data/flixel.mp3";
         internal string ImgPoweredBy = "Flixel;component/data/poweredby.png";
 
-		internal const double MAX_ELAPSED = 0.0333F;
-        internal const int  FPS_120 = 8; //milliseconds
-        internal const double TICKS_TO_MILLI = 10000; //convert ticks to milliseconds
+        internal const double FPS_120 = 0.008F; 
+        internal const double FPS_30 = 0.0333F;
+        internal const double TICKS_TO_SECONDS = 10000000; //convert ticks to seconds
 		
 		//startup
 		internal Type _iState;
@@ -64,6 +64,7 @@ namespace org.flixel
 		internal string _logoFade;
 		internal string _fSound;
 		internal bool _showLogo;
+        
 		
 		//@desc		Constructor
 		//@param	GameSizeX		The width of your game in pixels (e.g. 320)
@@ -259,11 +260,11 @@ namespace org.flixel
 			
 			//Frame timing
 			long t = DateTime.Now.Ticks;
-            _elapsed = (t - _total) / TICKS_TO_MILLI; //change to milliseconds
+            _elapsed = (t - _total) / TICKS_TO_SECONDS; //change to seconds
             double realDelta = _elapsed;
 			_total = t;
-            if (_elapsed > FPS_120)
-                _elapsed = MAX_ELAPSED; //don't know what the game is calibrated to
+            if (_elapsed > FPS_30)
+                _elapsed = FPS_30; //game expects seconds
             FlxG.elapsed = _elapsed;
 
 
@@ -338,7 +339,7 @@ namespace org.flixel
                 _pausePopup.render();
 
                 long endTime = DateTime.Now.Ticks;
-                realDelta = (endTime - t) / TICKS_TO_MILLI; //convert ticks to milliseconds
+                realDelta = (endTime - t) / TICKS_TO_SECONDS; //convert ticks to seconds
 
                 if (realDelta < FPS_120)
                     Thread.Sleep((int)(FPS_120 - realDelta)); // fix rate at 60 fps or so
@@ -388,7 +389,7 @@ namespace org.flixel
 					//if(_logoFade.alpha > 0)
 						//_logoFade.alpha -= _elapsed*0.5;
 						
-					if(_logoTimer > 4)
+					if(_logoTimer > 2)
 					{
 						_f.clear();
 						//removeChild(_logoFade);
