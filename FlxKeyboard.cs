@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 using System.Reflection;
-using org.flixel;
 
 namespace org.flixel.data
 {
