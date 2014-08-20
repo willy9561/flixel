@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Reflection;
 using System.IO;
 using System.Windows.Resources;
 using org.flixel.data;
